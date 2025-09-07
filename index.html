@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieVault | Download</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0e2a 0%, #232750 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header {
+            padding: 30px 40px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+        
+        .nav a {
+            color: #ddd;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav a:hover {
+            color: #6c5ce7;
+        }
+        
+        .main-content {
+            display: flex;
+            padding: 40px;
+            gap: 40px;
+        }
+        
+        .movie-display {
+            flex: 1;
+            position: relative;
+        }
+        
+        .poster-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .poster-container img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .poster-container:hover img {
+            transform: scale(1.03);
+        }
+        
+        .movie-info {
+            flex: 1;
+            padding-top: 20px;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            line-height: 1.2;
+        }
+        
+        .description {
+            color: #b2b2b2;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .details {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .detail-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: #b2b2b2;
+        }
+        
+        .timer-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timer-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        #timer {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #6c5ce7;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(108, 92, 231, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .timer-note {
+            color: #b2b2b2;
+            font-size: 1rem;
+        }
+        
+        .download-btn-container {
+            padding: 40px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #4a3fb5 100%);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(108, 92, 231, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #6c5ce7;
+        }
+        
+        .feature-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        
+        .feature-text p {
+            font-size: 0.9rem;
+            color: #b2b2b2;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+            color: #888;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .progress-container {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #6c5ce7, #4a3fb5);
+            border-radius: 3px;
+            transition: width 1s linear;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            #timer {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .nav {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .nav a {
+                margin: 0;
+            }
+            
+            .details {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .detail-item {
+                flex: 1;
+                min-width: 100px;
+            }
+            
+            #timer {
+                font-size: 2.5rem;
+            }
+            
+            .download-btn {
+                padding: 16px 35px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-play-circle"></i>
+                <span>MovieVault</span>
+            </div>
+            <div class="nav">
+                <a href="#">Home</a>
+                <a href="#">Movies</a>
+                <a href="#">New Releases</a>
+                <a href="#">Support</a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="movie-display">
+                <div class="poster-container">
+                    <img src="https://source.unsplash.com/random/500x750/?cinema,movie" alt="Movie Poster">
+                </div>
+            </div>
+            
+            <div class="movie-info">
+                <h1 class="title">Quantum Horizon: Beyond the Stars</h1>
+                <p class="description">In the year 2150, a team of elite astronauts embark on a perilous mission through a newly discovered wormhole. Their goal: to find a new habitable planet for humanity. What they discover on the other side will change everything we know about the universe.</p>
+                
+                <div class="details">
+                    <div class="detail-item">
+                        <span class="detail-value">8.6</span>
+                        <span class="detail-label">IMDb Rating</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-value">2023</span>
+                        <span class="detail-label">Release Year</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-value">2h 18m</span>
+                        <span class="detail-label">Duration</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-value">4K</span>
+                        <span class="detail-label">Quality</span>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress"></div>
+                </div>
+                
+                <div class="timer-section">
+                    <h3 class="timer-title">Download will be available in:</h3>
+                    <div id="timer">02:00</div>
+                    <p class="timer-note">Preparing your secure download link...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="download-btn-container" id="downloadContainer">
+            <a href="#" class="download-btn">
+                <i class="fas fa-download"></i> DOWNLOAD NOW
+            </a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>Ultra HD Quality</h4>
+                    <p>Experience crystal clear 4K resolution</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-closed-captioning"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>Multiple Subtitles</h4>
+                    <p>Available in 10+ languages</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>Dolby Atmos</h4>
+                    <p>Immersive theater-like audio</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="feature-text">
+                    <h4>No Ads</h4>
+                    <p>Enjoy uninterrupted viewing</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 MovieVault. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        const timerDisplay = document.getElementById('timer');
+        const downloadContainer = document.getElementById('downloadContainer');
+        const progressBar = document.getElementById('progress');
+        let timeLeft = 120; // 2 minutes in seconds
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update progress bar
+            const progressPercentage = 100 - (timeLeft / 120 * 100);
+            progressBar.style.width = progressPercentage + '%';
+            
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                downloadContainer.style.display = 'block';
+                timerDisplay.textContent = "00:00";
+                timerDisplay.style.color = "#00ff8c";
+            } else {
+                timeLeft--;
+            }
+        }
+        
+        const timerInterval = setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
